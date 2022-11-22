@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Explicação Online - Segurança</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../static/css/styles.css" rel="stylesheet" />
+        <link href="../static/css/default.css" rel="stylesheet" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#!">Explicação Online</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        {% if current_user.isTeacher == True %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Explicações</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/lessons">Ver todas</a></li>
+                                    <li><a class="dropdown-item" href="/manage-lessons">Gerir</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Explicações</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/lessons">Ver todas</a></li>
+                                <li><a class="dropdown-item" href="/my-lessons">Ver inscritas</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/manage-requests">Requisições</a></li>
+                        {% endif %}
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ current_user.name }}</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/account/profile">Perfil</a></li>
+                                <li><a class="dropdown-item" href="/account/security">Segurança</a></li>
+                                <li><a class="dropdown-item" href="/payments">Pagamentos</a></li>
+                                <li><a class="dropdown-item" href="/logout">Sair</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Header-->
+        <header class="bg-custom-blue py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">{{ current_user.name }}</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">{{ current_user.email }}</p>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+        <section class="py-2">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-12 row-cols-2 justify-content-center">
+                    <div class="col mb-5 text-center">
+                        <h4 class="text-center mb-5">Actualize as sua palavra-passe</h4>
+
+                        <form method="POST" id="updateProfileInfo" action="/account/security/edit">
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="floatingInput" name="current_password" placeholder="Palavra-passe actual">
+                                <label for="floatingInput">Palavra-passe actual</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="floatingInput" name="new_password" placeholder="Nova palavra-passe">
+                                <label for="floatingInput">Nova palavra-passe</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="floatingInput" name="confirm_new_password" placeholder="Confirmar nova palavra-passe">
+                                <label for="floatingInput">Confirmar nova palavra-passe</label>
+                            </div>
+
+                            <input type="submit" class="btn btn-primary" value="Salvar alterações">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-custom-blue">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Explicação Online 2022</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
