@@ -1,4 +1,6 @@
-# eTasks
+<img src="./static/logo.png" with="100px" height="100px">
+
+# ShareKnow
 ![image info](./static/screenshot.png)
 
 # :pushpin: índice
@@ -42,7 +44,7 @@ Uma plataforma web que gerencia explicações de qualquer disciplina ou matéria
 ## :arrow_forward: Rodar o Projeto
 
 * Primeiro passo, clone ou baixe o projeto em sua maquina
-* Abra a pasta do projeto no terminal
+* Abra a pasta do projeto no terminal `cd shareknow/src`
 * Instale o virtualenv com o comando `pip install virtualenv` 
 * Crie virtualvenv com o comando `python3 -m venv venv`
 * Ative o virtualvenv com o comando `source venv/bin/activate`
