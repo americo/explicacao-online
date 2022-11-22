@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Explicação Online - Pagamentos</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../static/css/styles.css" rel="stylesheet" />
+        <link href="../static/css/default.css" rel="stylesheet" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#!">Explicação Online</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        {% if current_user.isTeacher == True %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Explicações</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/lessons">Ver todas</a></li>
+                                    <li><a class="dropdown-item" href="/manage-lessons">Gerir</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Explicações</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/lessons">Ver todas</a></li>
+                                <li><a class="dropdown-item" href="/my-lessons">Ver inscritas</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/manage-requests">Requisições</a></li>
+                        {% endif %}
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ current_user.name }}</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/account/profile">Perfil</a></li>
+                                <li><a class="dropdown-item" href="/account/security">Segurança</a></li>
+                                <li><a class="dropdown-item" href="/payments">Pagamentos</a></li>
+                                <li><a class="dropdown-item" href="/logout">Sair</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Header-->
+        <header class="bg-custom-blue py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Pagamentos</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Histórico de pagamentos antes do saque.</p>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-12 row-cols-2 justify-content-center">
+                    <div class="col mb-5 table-condensed text-center">
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th scope="col px-5">#</th>
+                                {% if current_user.isTeacher == True %}
+                                    <th scope="col">Estudante</th>
+                                {% else %}
+                                    <th scope="col">Explicador</th>
+                                {% endif %}
+                                <th scope="col">Data</th>
+                                <th scope="col">Valor</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for payment in payments %}
+                                <tr>
+                                    <th scope="row">{{ payment.id }}</th>
+                                    {% if current_user.isTeacher == True %}
+                                        {% for student in students %}
+                                            {% if student.id == payment.student_id %}
+                                                <td>{{ student.name }}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for teacher in teachers %}
+                                            {% if teacher.id == payment.teacher_id %}
+                                                <td>{{ teacher.name }}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif%}
+                                    <td>{{ payment.created_at }}</td>
+                                    <td>${{ payment.amount }}</td>
+                                </tr>
+                              {% endfor %}
+                              <tr class="success">
+                                <td></td>
+                                <td></td>
+                                <td>Total</td>
+                                <td>${{ total_price }}</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        {% if current_user.isTeacher == True %}
+                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#withdraw">Transferir</a>
+                        {% endif %}
+                    </div>
+
+                    <!-- Withdraw Modal -->
+                <div class="modal fade" id="withdraw" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Transferir todos os fundos</h5>
+                            <button class="btn" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" id="postLessonForm" action="/payment/withdraw">
+                                    <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" name="paypal-email" placeholder="PayPal Email">
+                                    <label for="floatingInput">PayPal Email</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary" onclick="document.getElementById('postLessonForm').submit()">Concluir</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal -->
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-custom-blue">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Explicação Online 2022</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
