@@ -14,7 +14,7 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'svg'}
 
 def get_days_difference(timestamp):
     current_timestamp = time.time()
-    timestamp = current_timestamp - timestamp
+    timestamp = current_timestamp - float(timestamp)
     dateandtime = str(datetime.fromtimestamp(timestamp))
     dia = dateandtime.split("-")[2].split(" ")[0]
     return int(dia)

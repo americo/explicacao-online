@@ -26,9 +26,11 @@
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Explicações</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="/lessons">Ver todas</a></li>
+                                    <li><a class="dropdown-item" href="/my-lessons">Ver inscritas</a></li>
                                     <li><a class="dropdown-item" href="/manage-lessons">Gerir</a></li>
                                 </ul>
                             </li>
+                            <li class="nav-item"><a class="nav-link" href="/manage-requests">Requisições</a></li>
                         {% else %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Explicações</a>
@@ -54,7 +56,7 @@
                     
                 </div>
             </div>
-        </nav>
+        </nav
         
         <!-- Header-->
         <header class="bg-custom-blue py-5">
@@ -69,7 +71,7 @@
         <section class="py-5">
             <div class="container">
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postLesson">Publicar explicação</button>
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#postLesson">Publicar explicação</button>
                 </div>
 
                 <!-- Post Lesson Modal -->
@@ -108,7 +110,7 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary" onclick="document.getElementById('postLessonForm').submit()">Salvar</button>
+                            <button type="button" class="btn btn-dark" onclick="document.getElementById('postLessonForm').submit()">Salvar</button>
                             </div>
                         </div>
                     </div>
@@ -135,10 +137,10 @@
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-left">
-                                    <a class="btn btn-outline-primary mt-auto" data-bs-toggle="modal" data-bs-target="#manageLesson-{{ lesson.id }}" href="#">Alterar</a>
-                                    <a class="btn btn-outline-primary mt-auto" data-bs-toggle="modal" data-bs-target="#students-{{ lesson.id }}" href="#">Estudantes</a>
-                                    <a class="btn btn-outline-primary mt-auto" data-bs-toggle="modal" data-bs-target="#requests-{{ lesson.id }}" href="#">Requisições</a>
-                                    <a class="btn btn-outline-primary mt-auto" href="/lesson/delete?lesson_id={{ lesson.id }}">Apagar</a>
+                                    <a class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#manageLesson-{{ lesson.id }}" href="#">Alterar</a>
+                                    <a class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#students-{{ lesson.id }}" href="#">Estudantes</a>
+                                    <a class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#requests-{{ lesson.id }}" href="#">Requisições</a>
+                                    <a class="btn btn-outline-dark mt-auto" href="/lesson/delete?lesson_id={{ lesson.id }}">Apagar</a>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +186,7 @@
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                <button type="button" class="btn btn-primary" onclick="document.getElementById('manageLessonForm').submit()">Salvar</button>
+                                <button type="button" class="btn btn-dark" onclick="document.getElementById('manageLessonForm').submit()">Salvar</button>
                                 </div>
                             </div>
                         </div>
@@ -272,7 +274,7 @@
                                                 {% endfor %}
                                                 <td>{{ request.created_at }}</td>
                                                 <td>{{ lesson.subject }}</td>
-                                                <td><a class="btn btn-outline-primary mt-auto" href="/lesson/subscription/add?request_id={{ request.id }}">Aprovar</a></td>
+                                                <td><a class="btn btn-outline-dark mt-auto" href="/lesson/subscription/add?request_id={{ request.id }}">Aprovar</a></td>
                                             </tr>
                                             {% endif %}
                                           {% endfor %}
@@ -291,9 +293,7 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="py-5 bg-custom-blue">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; ShareKnow 2022</p></div>
-        </footer>
+        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
